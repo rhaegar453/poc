@@ -1,0 +1,219 @@
+[
+    {
+        "id": "KYC_NAME",
+        "nextScreens": [
+            {
+                "id": "KYC_BANK_DETAILS",
+                "condition": {
+                    "expression": "applicationData.applicant != null && applicationData.applicant.user.provided.name != null && applicationData.applicant.user.provided.name.status.equalsIgnoreCase('COMPLETE') && applicationData.applicant.ispbk == true"
+                }
+            }
+        ],
+        "previousScreen": {
+            "id": "HOME",
+            "condition": {
+                "expression": "true"
+            }
+        }
+    },
+    {
+        "id": "KYC_PAN",
+        "nextScreens": [
+            {
+                "id": "KYC_CHECKER",
+                "condition": {
+                    "expression": "applicationData.applicant != null && applicationData.applicant.kycComplaint != null && applicationData.applicant.kycComplaint == false"
+                }
+            }
+        ],
+        "previousScreen": {
+            "id": "HOME",
+            "condition": {
+                "expression": "true"
+            }
+        }
+    },
+    {
+        "id": "KYC_CHECKER",
+        "nextScreens": [
+            {
+                "id": "KYC_PERSONAL_DETAILS",
+                "condition": {
+                    "expression": "applicationData.applicant != null && applicationData.applicant.kycComplaint != null && applicationData.applicant.kycComplaint == true"
+                }
+            },
+            {
+                "id": "KYC_PAN_ERROR",
+                "condition": {
+                    "expression": "applicationData.applicant != null && applicationData.applicant.panValid != null && applicationData.applicant.panValid == false"
+                }
+            }
+        ],
+        "previousScreen": {
+            "id": "HOME",
+            "condition": {
+                "expression": "true"
+            }
+        }
+    },
+    {
+        "id": "KYC_BANK_DETAILS",
+        "nextScreens": [
+            {
+                "id": "KYC_BANK_CHECKER",
+                "condition": {
+                    "expression": "(applicationData.applicant != null && applicationData.applicant.primaryBankAccount != null && applicationData.applicant.primaryBankAccount.pennydrop != null && applicationData.applicant.primaryBankAccount.pennydrop.status.equalsIgnoreCase('VERIFICATION_IN_PROGRESS'))"
+                }
+            },
+            {
+                "id": "KYC_PAN",
+                "condition": {
+                    "expression": "applicationData.applicant != null && applicationData.applicant.primaryBankAccount != null && applicationData.applicant.primaryBankAccount.pennydrop != null && applicationData.applicant.primaryBankAccount.pennydrop.status != null && applicationData.applicant.ispbk == true && applicationData.applicant.primaryBankAccount.pennydrop.status.equalsIgnoreCase('VERIFIED')"
+                }
+            },
+            {
+                "id": "KYC_WET_SIGNATURE",
+                "condition": {
+                    "expression": "applicationData.applicant != null && applicationData.applicant.primaryBankAccount != null && applicationData.applicant.primaryBankAccount.pennydrop != null && applicationData.applicant.primaryBankAccount.pennydrop.status != null && applicationData.applicant.primaryBankAccount.pennydrop.status.equalsIgnoreCase('VERIFIED')"
+                }
+            }
+        ],
+        "previousScreen": {
+            "id": "HOME",
+            "condition": {
+                "expression": "true"
+            }
+        }
+    },
+    {
+        "id": "KYC_BANK_CHECKER",
+        "nextScreens": [
+            {
+                "id": "KYC_BANK_DETAILS",
+                "condition": {
+                    "expression": "applicationData.applicant != null && applicationData.applicant.primaryBankAccount != null && applicationData.applicant.primaryBankAccount.pennydrop != null && applicationData.applicant.primaryBankAccount.pennydrop.status != null && (applicationData.applicant.primaryBankAccount.pennydrop.status.equalsIgnoreCase('VERIFICATION_FAILED') || applicationData.applicant.primaryBankAccount.pennydrop.status.equalsIgnoreCase('VERIFICATION_DELAYED'))"
+                }
+            },
+            {
+                "id": "KYC_PAN",
+                "condition": {
+                    "expression": "applicationData.applicant != null && applicationData.applicant.primaryBankAccount != null && applicationData.applicant.primaryBankAccount.pennydrop != null && applicationData.applicant.primaryBankAccount.pennydrop.status != null && applicationData.applicant.ispbk == true && applicationData.applicant.primaryBankAccount.pennydrop.status.equalsIgnoreCase('VERIFIED')"
+                }
+            },
+            {
+                "id": "KYC_WET_SIGNATURE",
+                "condition": {
+                    "expression": "applicationData.applicant != null && applicationData.applicant.primaryBankAccount != null && applicationData.applicant.primaryBankAccount.pennydrop != null && applicationData.applicant.primaryBankAccount.pennydrop.status != null && applicationData.applicant.primaryBankAccount.pennydrop.status.equalsIgnoreCase('VERIFIED')"
+                }
+            }
+        ],
+        "previousScreen": null
+    },
+    {
+        "id": "KYC_PERSONAL_DETAILS",
+        "nextScreens": [
+            {
+                "id": "KYC_WET_SIGNATURE",
+                "condition": {
+                    "expression": "applicationData.applicant != null && applicationData.applicant.primaryBankAccount != null && applicationData.applicant.primaryBankAccount.pennydrop != null && applicationData.applicant.primaryBankAccount.pennydrop.status != null && applicationData.applicant.primaryBankAccount.pennydrop.status.equalsIgnoreCase('VERIFIED') && (applicationData.applicant.oneclick != null && applicationData.applicant.oneclick.journey != null && (applicationData.applicant.oneclick.journey.type != null && applicationData.applicant.oneclick.journey.type == \"EMF_ONE_CLICK\") && (applicationData.applicant.oneclick.journey.status != null && applicationData.applicant.oneclick.journey.status == \"SUCCESS\"))"
+                }
+            },
+            {
+                "id": "KYC_WORK_DETAILS",
+                "condition": {
+                    "expression": "applicationData.applicant != null && applicationData.applicant.personalDetails != null && applicationData.applicant.personalDetails.status.equalsIgnoreCase('COMPLETE')"
+                }
+            }
+        ],
+        "previousScreen": {
+            "id": "HOME",
+            "condition": {
+                "expression": "true"
+            }
+        }
+    },
+    {
+        "id": "KYC_WORK_DETAILS",
+        "nextScreens": [
+            {
+                "id": "KYC_PERMISSIONS",
+                "condition": {
+                    "expression": "applicationData.applicant != null && applicationData.applicant.workDetails != null && applicationData.applicant.workDetails.status.equalsIgnoreCase('COMPLETE') && applicationData.applicant.permissions != null && applicationData.applicant.permissions.eligible == true"
+                }
+            },
+            {
+                "id": "KYC_WET_SIGNATURE",
+                "condition": {
+                    "expression": "applicationData.applicant != null && applicationData.applicant.ispbk == true && applicationData.applicant.workDetails != null && applicationData.applicant.workDetails.status.equalsIgnoreCase('COMPLETE')"
+                }
+            },
+            {
+                "id": "KYC_BANK_DETAILS",
+                "condition": {
+                    "expression": "applicationData.applicant != null && applicationData.applicant.workDetails != null && applicationData.applicant.workDetails.status.equalsIgnoreCase('COMPLETE')"
+                }
+            }
+        ],
+        "previousScreen": {
+            "id": "HOME",
+            "condition": {
+                "expression": "true"
+            }
+        }
+    },
+    {
+        "id": "KYC_PERMISSIONS",
+        "nextScreens": [
+            {
+                "id": "KYC_BANK_DETAILS",
+                "condition": {
+                    "expression": "applicationData.applicant != null && applicationData.applicant.permissions != null && applicationData.applicant.permissions.status.equalsIgnoreCase('COMPLETE')"
+                }
+            },
+            {
+                "id": "KYC_WET_SIGNATURE",
+                "condition": {
+                    "expression": "applicationData.applicant != null && applicationData.applicant.ispbk == true && applicationData.applicant.permissions.status.equalsIgnoreCase('COMPLETE')"
+                }
+            }
+        ],
+        "previousScreen": {
+            "id": "HOME",
+            "condition": {
+                "expression": "true"
+            }
+        }
+    },
+    {
+        "id": "KYC_WET_SIGNATURE",
+        "nextScreens": [
+            {
+                "id": "KYC_ESIGN",
+                "condition": {
+                    "expression": "applicationData.applicant != null && applicationData.applicant.wetSign != null && applicationData.applicant.wetSign.document.id != null"
+                }
+            }
+        ],
+        "previousScreen": {
+            "id": "HOME",
+            "condition": {
+                "expression": "true"
+            }
+        }
+    },
+    {
+        "id": "KYC_ESIGN",
+        "nextScreens": [],
+        "previousScreen": null
+    },
+    {
+        "id": "HOME",
+        "nextScreens": [],
+        "previousScreen": null
+    },
+    {
+        "id": "KYC_PAN_ERROR",
+        "nextScreens": [],
+        "previousScreen": null
+    }
+]
