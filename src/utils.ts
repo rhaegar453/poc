@@ -11,12 +11,14 @@ interface Screen {
 interface INode {
     id: string,
     nextScreens: Array<Screen>,
-    previousScreen: Array<Screen>
+    previousScreen: Screen
 }
+
 export const formatNodesData = (data: Array<INode>) => {
     let nodes: Array<any> = [];
     let edges: Array<any> = [];
     data.map(item => {
+        let color = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
         nodes.push({
             id: item.id,
             draggable: true,
@@ -27,22 +29,24 @@ export const formatNodesData = (data: Array<INode>) => {
                 id: uuid(),
                 source: item.id,
                 target: nextScreen.id,
-                type: 'step',
+                type: 'simplebezier',
+                style: { stroke: color },
                 markerEnd: {
                     type: MarkerType.ArrowClosed,
                     color: 'black',
-                    height: 20,
-                    width: 20
+                    height: 10,
+                    width: 10
                 }
             })
         })
-        item?.previousScreen?.length && item.previousScreen.map((prevScreen) => {
+        if (item.previousScreen) {
             edges.push({
                 id: uuid(),
-                source: prevScreen.id,
-                target: item.id,
+                source: item.id,
+                target: item.previousScreen.id,
+                color: color
             })
-        })
+        }
     })
     return {
         nodes,

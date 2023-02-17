@@ -1,219 +1,535 @@
 [
     {
-        "id": "KYC_NAME",
+        "id": "INTRO_SCREEN",
         "nextScreens": [
             {
-                "id": "KYC_BANK_DETAILS",
+                "id": "BASIC_DETAILS",
                 "condition": {
-                    "expression": "applicationData.applicant != null && applicationData.applicant.user.provided.name != null && applicationData.applicant.user.provided.name.status.equalsIgnoreCase('COMPLETE') && applicationData.applicant.ispbk == true"
-                }
-            }
-        ],
-        "previousScreen": {
-            "id": "HOME",
-            "condition": {
-                "expression": "true"
-            }
-        }
-    },
-    {
-        "id": "KYC_PAN",
-        "nextScreens": [
-            {
-                "id": "KYC_CHECKER",
-                "condition": {
-                    "expression": "applicationData.applicant != null && applicationData.applicant.kycComplaint != null && applicationData.applicant.kycComplaint == false"
-                }
-            }
-        ],
-        "previousScreen": {
-            "id": "HOME",
-            "condition": {
-                "expression": "true"
-            }
-        }
-    },
-    {
-        "id": "KYC_CHECKER",
-        "nextScreens": [
-            {
-                "id": "KYC_PERSONAL_DETAILS",
-                "condition": {
-                    "expression": "applicationData.applicant != null && applicationData.applicant.kycComplaint != null && applicationData.applicant.kycComplaint == true"
-                }
-            },
-            {
-                "id": "KYC_PAN_ERROR",
-                "condition": {
-                    "expression": "applicationData.applicant != null && applicationData.applicant.panValid != null && applicationData.applicant.panValid == false"
-                }
-            }
-        ],
-        "previousScreen": {
-            "id": "HOME",
-            "condition": {
-                "expression": "true"
-            }
-        }
-    },
-    {
-        "id": "KYC_BANK_DETAILS",
-        "nextScreens": [
-            {
-                "id": "KYC_BANK_CHECKER",
-                "condition": {
-                    "expression": "(applicationData.applicant != null && applicationData.applicant.primaryBankAccount != null && applicationData.applicant.primaryBankAccount.pennydrop != null && applicationData.applicant.primaryBankAccount.pennydrop.status.equalsIgnoreCase('VERIFICATION_IN_PROGRESS'))"
-                }
-            },
-            {
-                "id": "KYC_PAN",
-                "condition": {
-                    "expression": "applicationData.applicant != null && applicationData.applicant.primaryBankAccount != null && applicationData.applicant.primaryBankAccount.pennydrop != null && applicationData.applicant.primaryBankAccount.pennydrop.status != null && applicationData.applicant.ispbk == true && applicationData.applicant.primaryBankAccount.pennydrop.status.equalsIgnoreCase('VERIFIED')"
-                }
-            },
-            {
-                "id": "KYC_WET_SIGNATURE",
-                "condition": {
-                    "expression": "applicationData.applicant != null && applicationData.applicant.primaryBankAccount != null && applicationData.applicant.primaryBankAccount.pennydrop != null && applicationData.applicant.primaryBankAccount.pennydrop.status != null && applicationData.applicant.primaryBankAccount.pennydrop.status.equalsIgnoreCase('VERIFIED')"
-                }
-            }
-        ],
-        "previousScreen": {
-            "id": "HOME",
-            "condition": {
-                "expression": "true"
-            }
-        }
-    },
-    {
-        "id": "KYC_BANK_CHECKER",
-        "nextScreens": [
-            {
-                "id": "KYC_BANK_DETAILS",
-                "condition": {
-                    "expression": "applicationData.applicant != null && applicationData.applicant.primaryBankAccount != null && applicationData.applicant.primaryBankAccount.pennydrop != null && applicationData.applicant.primaryBankAccount.pennydrop.status != null && (applicationData.applicant.primaryBankAccount.pennydrop.status.equalsIgnoreCase('VERIFICATION_FAILED') || applicationData.applicant.primaryBankAccount.pennydrop.status.equalsIgnoreCase('VERIFICATION_DELAYED'))"
-                }
-            },
-            {
-                "id": "KYC_PAN",
-                "condition": {
-                    "expression": "applicationData.applicant != null && applicationData.applicant.primaryBankAccount != null && applicationData.applicant.primaryBankAccount.pennydrop != null && applicationData.applicant.primaryBankAccount.pennydrop.status != null && applicationData.applicant.ispbk == true && applicationData.applicant.primaryBankAccount.pennydrop.status.equalsIgnoreCase('VERIFIED')"
-                }
-            },
-            {
-                "id": "KYC_WET_SIGNATURE",
-                "condition": {
-                    "expression": "applicationData.applicant != null && applicationData.applicant.primaryBankAccount != null && applicationData.applicant.primaryBankAccount.pennydrop != null && applicationData.applicant.primaryBankAccount.pennydrop.status != null && applicationData.applicant.primaryBankAccount.pennydrop.status.equalsIgnoreCase('VERIFIED')"
+                    "expression": "true"
                 }
             }
         ],
         "previousScreen": null
     },
     {
-        "id": "KYC_PERSONAL_DETAILS",
-        "nextScreens": [
-            {
-                "id": "KYC_WET_SIGNATURE",
-                "condition": {
-                    "expression": "applicationData.applicant != null && applicationData.applicant.primaryBankAccount != null && applicationData.applicant.primaryBankAccount.pennydrop != null && applicationData.applicant.primaryBankAccount.pennydrop.status != null && applicationData.applicant.primaryBankAccount.pennydrop.status.equalsIgnoreCase('VERIFIED') && (applicationData.applicant.oneclick != null && applicationData.applicant.oneclick.journey != null && (applicationData.applicant.oneclick.journey.type != null && applicationData.applicant.oneclick.journey.type == \"EMF_ONE_CLICK\") && (applicationData.applicant.oneclick.journey.status != null && applicationData.applicant.oneclick.journey.status == \"SUCCESS\"))"
-                }
-            },
-            {
-                "id": "KYC_WORK_DETAILS",
-                "condition": {
-                    "expression": "applicationData.applicant != null && applicationData.applicant.personalDetails != null && applicationData.applicant.personalDetails.status.equalsIgnoreCase('COMPLETE')"
-                }
-            }
-        ],
-        "previousScreen": {
-            "id": "HOME",
-            "condition": {
-                "expression": "true"
-            }
-        }
-    },
-    {
-        "id": "KYC_WORK_DETAILS",
-        "nextScreens": [
-            {
-                "id": "KYC_PERMISSIONS",
-                "condition": {
-                    "expression": "applicationData.applicant != null && applicationData.applicant.workDetails != null && applicationData.applicant.workDetails.status.equalsIgnoreCase('COMPLETE') && applicationData.applicant.permissions != null && applicationData.applicant.permissions.eligible == true"
-                }
-            },
-            {
-                "id": "KYC_WET_SIGNATURE",
-                "condition": {
-                    "expression": "applicationData.applicant != null && applicationData.applicant.ispbk == true && applicationData.applicant.workDetails != null && applicationData.applicant.workDetails.status.equalsIgnoreCase('COMPLETE')"
-                }
-            },
-            {
-                "id": "KYC_BANK_DETAILS",
-                "condition": {
-                    "expression": "applicationData.applicant != null && applicationData.applicant.workDetails != null && applicationData.applicant.workDetails.status.equalsIgnoreCase('COMPLETE')"
-                }
-            }
-        ],
-        "previousScreen": {
-            "id": "HOME",
-            "condition": {
-                "expression": "true"
-            }
-        }
-    },
-    {
-        "id": "KYC_PERMISSIONS",
-        "nextScreens": [
-            {
-                "id": "KYC_BANK_DETAILS",
-                "condition": {
-                    "expression": "applicationData.applicant != null && applicationData.applicant.permissions != null && applicationData.applicant.permissions.status.equalsIgnoreCase('COMPLETE')"
-                }
-            },
-            {
-                "id": "KYC_WET_SIGNATURE",
-                "condition": {
-                    "expression": "applicationData.applicant != null && applicationData.applicant.ispbk == true && applicationData.applicant.permissions.status.equalsIgnoreCase('COMPLETE')"
-                }
-            }
-        ],
-        "previousScreen": {
-            "id": "HOME",
-            "condition": {
-                "expression": "true"
-            }
-        }
-    },
-    {
-        "id": "KYC_WET_SIGNATURE",
-        "nextScreens": [
-            {
-                "id": "KYC_ESIGN",
-                "condition": {
-                    "expression": "applicationData.applicant != null && applicationData.applicant.wetSign != null && applicationData.applicant.wetSign.document.id != null"
-                }
-            }
-        ],
-        "previousScreen": {
-            "id": "HOME",
-            "condition": {
-                "expression": "true"
-            }
-        }
-    },
-    {
-        "id": "KYC_ESIGN",
+        "id": "PAN_ANOTHER_USER_ERROR_SCREEN",
         "nextScreens": [],
         "previousScreen": null
     },
     {
-        "id": "HOME",
-        "nextScreens": [],
+        "id": "BASIC_DETAILS",
+        "nextScreens": [
+            {
+                "id": "E_PAN_NAME_INVALID_01",
+                "condition": {
+                    "expression": "applicationData.applicant.panDetails.dedupCheck.errorCode == \"E_PAN_NAME_INVALID_01\""
+                }
+            },
+            {
+                "id": "E_PAN_SYSTEM_DOWNTIME_01",
+                "condition": {
+                    "expression": "applicationData.applicant.panDetails.dedupCheck.errorCode == \"E_PAN_SYSTEM_DOWNTIME_01\""
+                }
+            },
+            {
+                "id": "E_PAN_INVALID_02",
+                "condition": {
+                    "expression": "applicationData.applicant.panDetails.dedupCheck.errorCode == \"E_PAN_INVALID_02\""
+                }
+            },
+            {
+                "id": "E_PAN_CHANGE_ON_SAME_PHONE_NUMBER",
+                "condition": {
+                    "expression": "applicationData.applicant.panDetails.dedupCheck.errorCode == \"E_PAN_CHANGE_ON_SAME_PHONE_NUMBER\""
+                }
+            },
+            {
+                "id": "E_DIFF_PHONE_NUMBER_ON_SAME_DEVICE",
+                "condition": {
+                    "expression": "applicationData.applicant.panDetails.dedupCheck.errorCode == \"E_DIFF_PHONE_NUMBER_ON_SAME_DEVICE\""
+                }
+            },
+            {
+                "id": "E_PAN_INVALID_01",
+                "condition": {
+                    "expression": "applicationData.applicant.panDetails.dedupCheck.errorCode == \"E_PAN_INVALID_01\""
+                }
+            },
+            {
+                "id": "WORK_DETAILS",
+                "condition": {
+                    "expression": "applicationData.applicant.name != null && applicationData.applicant.panDetails.pan != null && applicationData.applicant.dateOfBirth != null && applicationData.applicant.panDetails.dedupCheck.status == \"SUCCESS\""
+                }
+            },
+            {
+                "id": "PAN_ANOTHER_USER_ERROR_SCREEN",
+                "condition": {
+                    "expression": "applicationData.applicant.panDetails.status == \"PAN_BELONGS_TO_DIFFERENT_USER\""
+                }
+            }
+        ],
+        "previousScreen": {
+            "id": "HOME",
+            "condition": {
+                "expression": "true"
+            }
+        }
+    },
+    {
+        "id": "WORK_DETAILS",
+        "nextScreens": [
+            {
+                "id": "EPFO_MODULE",
+                "condition": {
+                    "expression": "applicationData.applicant != null && applicationData.applicant.employmentDetails != null && applicationData.applicant.employmentDetails.employmentType == \"SALARIED\" && applicationData.applicant.incomeDetails != null && applicationData.applicant.incomeDetails.declaredMonthlyIncome != null && applicationData.applicant.employmentDetails.epfoDetails != null && applicationData.applicant.employmentDetails.epfoDetails.uan != null"
+                }
+            },
+            {
+                "id": "PERMISSION",
+                "condition": {
+                    "expression": "applicationData.applicant != null && applicationData.applicant.employmentDetails != null && applicationData.applicant.employmentDetails.employmentType != null && applicationData.applicant.incomeDetails != null && applicationData.applicant.incomeDetails.declaredMonthlyIncome != null"
+                }
+            }
+        ],
         "previousScreen": null
     },
     {
-        "id": "KYC_PAN_ERROR",
-        "nextScreens": [],
+        "id": "EPFO_MODULE",
+        "nextScreens": [
+            {
+                "id": "PERMISSION",
+                "condition": {
+                    "expression": "applicationData.applicant != null && applicationData.applicant.employmentDetails != null && applicationData.applicant.employmentDetails.epfoDetails!=null && (applicationData.applicant.employmentDetails.epfoDetails.isCompleted == \"true\" || applicationData.applicant.employmentDetails.epfoDetails.isSkipped == \"true\")"
+                }
+            }
+        ],
+        "previousScreen": null
+    },
+    {
+        "id": "GST_MODULE",
+        "nextScreens": [
+            {
+                "id": "PERMISSION",
+                "condition": {
+                    "expression": "applicationData.applicant != null && applicationData.applicant.gstDetails !=null && (applicationData.applicant.gstDetails.isVerified == \"true\" || applicationData.applicant.gstDetails.isSkipped == \"true\")"
+                }
+            }
+        ],
+        "previousScreen": null
+    },
+    {
+        "id": "BANK_STATEMENT_MODULE",
+        "nextScreens": [
+            {
+                "id": "OFFER_GENERATION",
+                "condition": {
+                    "expression": "applicationData.applicant != null && applicationData.applicant.incomeDetails != null && applicationData.applicant.incomeDetails.isVerified != null && applicationData.applicant.incomeDetails.verificationMode != null && applicationData.applicant.incomeDetails.status == \"VERIFIED\""
+                }
+            },
+            {
+                "id": "UPGRADE_LOAN_OFFER",
+                "condition": {
+                    "expression": "applicationData.applicant != null && applicationData.applicant.incomeDetails != null && applicationData.applicant.incomeDetails.isVerified != null && applicationData.applicant.incomeDetails.verificationMode != null && applicationData.applicant.incomeDetails.status == \"BANK_UPLOAD_LIMIT_EXHAUSTED\""
+                }
+            },
+            {
+                "id": "MFI_REJECTION_SCREEN",
+                "condition": {
+                    "expression": "applicationData.applicant != null && applicationData.applicant.incomeDetails != null && applicationData.applicant.incomeDetails.isVerified != null && applicationData.applicant.incomeDetails.verificationMode != null && applicationData.applicant.incomeDetails.status == \"SOFT_REJECT\""
+                }
+            }
+        ],
+        "previousScreen": {
+            "id": "UPGRADE_LOAN_OFFER",
+            "condition": {
+                "expression": "true"
+            }
+        }
+    },
+    {
+        "id": "PERMISSION",
+        "nextScreens": [
+            {
+                "id": "OFFER_GENERATION",
+                "condition": {
+                    "expression": "applicationData.permission != null && applicationData.permission.isPermissionGiven == \"true\""
+                }
+            }
+        ],
+        "previousScreen": null
+    },
+    {
+        "id": "OFFER_GENERATION",
+        "nextScreens": [
+            {
+                "id": "BANK_STATEMENT_MODULE",
+                "condition": {
+                    "expression": "applicationData.offerDetails != null && applicationData.offerDetails.status == \"IN_REVIEW\""
+                }
+            },
+            {
+                "id": "MFI",
+                "condition": {
+                    "expression": "applicationData.offerDetails != null && applicationData.offerDetails.isMfiRequired == \"true\""
+                }
+            },
+            {
+                "id": "LOAN_DETAILS",
+                "condition": {
+                    "expression": "applicationData.offerDetails != null && applicationData.offerDetails.isMfiRequired == \"false\""
+                }
+            },
+            {
+                "id": "OFFER_REJECTION_SCREEN",
+                "condition": {
+                    "expression": "applicationData.offerDetails != null && applicationData.offerDetails.isRejected == \"true\""
+                }
+            }
+        ],
+        "previousScreen": null
+    },
+    {
+        "id": "MFI",
+        "nextScreens": [
+            {
+                "id": "LOAN_DETAILS",
+                "condition": {
+                    "expression": "applicationData.loanDetails != null && applicationData.loanDetails.mfi != null && applicationData.loanDetails.mfi.isConsentGiven != null && applicationData.loanDetails.mfi.isConsentGiven == \"true\""
+                }
+            },
+            {
+                "id": "MFI_REJECTION_SCREEN",
+                "condition": {
+                    "expression": "applicationData.applicant != null && applicationData.loanDetails.mfi != null && applicationData.loanDetails.mfi.isConsentGiven != null && applicationData.loanDetails.mfi.isConsentGiven == \"false\""
+                }
+            }
+        ],
+        "previousScreen": {
+            "id": "HOME",
+            "condition": {
+                "expression": "true"
+            }
+        }
+    },
+    {
+        "id": "LOAN_DETAILS",
+        "nextScreens": [
+            {
+                "id": "OFFER_GENERATION",
+                "condition": {
+                    "expression": "applicationData.applicant != null && applicationData.applicant.incomeDetails != null && applicationData.applicant.incomeDetails.status != null && applicationData.applicant.incomeDetails.verificationMode != null && applicationData.applicant.incomeDetails.status == \"VERIFIED\""
+                }
+            },
+            {
+                "id": "UPGRADE_LOAN_OFFER",
+                "condition": {
+                    "expression": "applicationData.applicant != null && applicationData.applicant.incomeDetails != null && applicationData.applicant.incomeDetails.status != null && applicationData.applicant.incomeDetails.verificationMode != null && applicationData.applicant.incomeDetails.status == \"BANK_UPLOAD_LIMIT_EXHAUSTED\""
+                }
+            },
+            {
+                "id": "MFI_REJECTION_SCREEN",
+                "condition": {
+                    "expression": "applicationData.applicant != null && applicationData.applicant.incomeDetails != null && applicationData.applicant.incomeDetails.status != null && applicationData.applicant.incomeDetails.verificationMode != null && applicationData.applicant.incomeDetails.status == \"SOFT_REJECT\""
+                }
+            },
+            {
+                "id": "BANK_STATEMENT_MODULE",
+                "condition": {
+                    "expression": "applicationData.applicant != null && applicationData.applicant.incomeDetails != null && applicationData.applicant.incomeDetails.status != null && applicationData.applicant.incomeDetails.verificationMode != null && applicationData.applicant.incomeDetails.status == \"FAILURE\""
+                }
+            },
+            {
+                "id": "LOAN_OFFER_EXPIRY",
+                "condition": {
+                    "expression": "applicationData.offerDetails != null && applicationData.offerDetails.expiryDate < (new java.text.SimpleDateFormat(\"yyyy-MM-dd\").format(new java.util.Date()))"
+                }
+            },
+            {
+                "id": "BANK_DETAILS",
+                "condition": {
+                    "expression": "applicationData.loanDetails != null && applicationData.loanDetails.isCompleted == \"true\""
+                }
+            }
+        ],
+        "previousScreen": {
+            "id": "HOME",
+            "condition": {
+                "expression": "true"
+            }
+        }
+    },
+    {
+        "id": "BANK_DETAILS",
+        "nextScreens": [
+            {
+                "id": "LOAN_OFFER_EXPIRY",
+                "condition": {
+                    "expression": "applicationData.offerDetails != null && applicationData.offerDetails.expiryDate < (new java.text.SimpleDateFormat(\"yyyy-MM-dd\").format(new java.util.Date()))"
+                }
+            },
+            {
+                "id": "BANK_DETAILS_LOADER",
+                "condition": {
+                    "expression": "applicationData.applicant != null && applicationData.applicant.primaryBankAccount != null && applicationData.applicant.primaryBankAccount.accountNumber != null"
+                }
+            }
+        ],
+        "previousScreen": {
+            "id": "LOAN_DETAILS",
+            "condition": {
+                "expression": "true"
+            }
+        }
+    },
+    {
+        "id": "EMPTY_BANK_DETAILS",
+        "nextScreens": [
+            {
+                "id": "LOAN_OFFER_EXPIRY",
+                "condition": {
+                    "expression": "applicationData.offerDetails != null && applicationData.offerDetails.expiryDate < (new java.text.SimpleDateFormat(\"yyyy-MM-dd\").format(new java.util.Date()))"
+                }
+            },
+            {
+                "id": "BANK_DETAILS_LOADER",
+                "condition": {
+                    "expression": "applicationData.applicant != null && applicationData.applicant.primaryBankAccount != null && applicationData.applicant.primaryBankAccount.accountNumber != null"
+                }
+            }
+        ],
+        "previousScreen": {
+            "id": "LOAN_DETAILS",
+            "condition": {
+                "expression": "true"
+            }
+        }
+    },
+    {
+        "id": "BANK_DETAILS_LOADER",
+        "nextScreens": [
+            {
+                "id": "BANK_DETAILS_WITH_ERRORS",
+                "condition": {
+                    "expression": "applicationData.applicant.primaryBankAccount != null && applicationData.applicant.primaryBankAccount.ifsc != null && applicationData.applicant.primaryBankAccount.bankCode != null && !applicationData.applicant.primaryBankAccount.ifsc.startsWith(applicationData.applicant.primaryBankAccount.bankCode)"
+                }
+            },
+            {
+                "id": "BANK_DETAILS_WITH_ERRORS",
+                "condition": {
+                    "expression": "applicationData.applicant.primaryBankAccount.status == \"FAILURE\""
+                }
+            },
+            {
+                "id": "LOAN_OFFER_EXPIRY",
+                "condition": {
+                    "expression": "applicationData.offerDetails != null && applicationData.offerDetails.expiryDate < (new java.text.SimpleDateFormat(\"yyyy-MM-dd\").format(new java.util.Date()))"
+                }
+            },
+            {
+                "id": "MANDATE",
+                "condition": {
+                    "expression": "applicationData.applicant != null && applicationData.applicant.primaryBankAccount != null && applicationData.applicant.primaryBankAccount.status == \"SUCCESS\" && applicationData.applicant.primaryBankAccount.mandateDetails != null && applicationData.applicant.primaryBankAccount.mandateDetails.mandateId != null"
+                }
+            }
+        ],
+        "previousScreen": null
+    },
+    {
+        "id": "MANDATE",
+        "nextScreens": [
+            {
+                "id": "LOAN_OFFER_EXPIRY",
+                "condition": {
+                    "expression": "applicationData.offerDetails != null && applicationData.offerDetails.expiryDate < (new java.text.SimpleDateFormat(\"yyyy-MM-dd\").format(new java.util.Date()))"
+                }
+            },
+            {
+                "id": "MANDATE_LOADER",
+                "condition": {
+                    "expression": "applicationData.applicant.primaryBankAccount.mandateDetails.sdk.status != null"
+                }
+            }
+        ],
+        "previousScreen": {
+            "id": "BANK_DETAILS",
+            "condition": {
+                "expression": "true"
+            }
+        }
+    },
+    {
+        "id": "MANDATE_LOADER",
+        "nextScreens": [
+            {
+                "id": "LOAN_OFFER_EXPIRY",
+                "condition": {
+                    "expression": "applicationData.offerDetails != null && applicationData.offerDetails.expiryDate < (new java.text.SimpleDateFormat(\"yyyy-MM-dd\").format(new java.util.Date()))"
+                }
+            },
+            {
+                "id": "KYC",
+                "condition": {
+                    "expression": "applicationData.applicant.primaryBankAccount.mandateDetails.sdk.status == \"SUCCESS\""
+                }
+            },
+            {
+                "id": "MANDATE",
+                "condition": {
+                    "expression": "applicationData.applicant.primaryBankAccount.mandateDetails.sdk.status == \"FAILURE\""
+                }
+            }
+        ],
+        "previousScreen": null
+    },
+    {
+        "id": "KYC",
+        "nextScreens": [
+            {
+                "id": "LOAN_OFFER_EXPIRY",
+                "condition": {
+                    "expression": "applicationData.offerDetails != null && applicationData.offerDetails.expiryDate < (new java.text.SimpleDateFormat(\"yyyy-MM-dd\").format(new java.util.Date()))"
+                }
+            },
+            {
+                "id": "LOAN_SUMMARY",
+                "condition": {
+                    "expression": "applicationData.applicant != null && applicationData.applicant.kycDetails != null && applicationData.applicant.kycDetails.status == \"SUCCESS\""
+                }
+            },
+            {
+                "id": "KYC_VERIFICATION_FAILED",
+                "condition": {
+                    "expression": "applicationData.applicant != null && applicationData.applicant.kycDetails != null && applicationData.applicant.kycDetails.status == \"FAILED\""
+                }
+            },
+            {
+                "id": "KYC_IN_REVIEW",
+                "condition": {
+                    "expression": "applicationData.applicant != null && applicationData.applicant.kycDetails != null && applicationData.applicant.kycDetails.status == \"IN_REVIEW\""
+                }
+            }
+        ],
+        "previousScreen": {
+            "id": "HOME",
+            "condition": {
+                "expression": "true"
+            }
+        }
+    },
+    {
+        "id": "LOAN_SUMMARY",
+        "nextScreens": [
+            {
+                "id": "LOAN_OFFER_EXPIRY",
+                "condition": {
+                    "expression": "applicationData.offerDetails != null && applicationData.offerDetails.expiryDate < (new java.text.SimpleDateFormat(\"yyyy-MM-dd\").format(new java.util.Date()))"
+                }
+            },
+            {
+                "id": "DISBURSEMENT_OTP_SCREEN",
+                "condition": {
+                    "expression": "applicationData.applicant.emailId != null && applicationData.trueCallerDetails != null && applicationData.trueCallerDetails.isValidationRequired == \"true\""
+                }
+            },
+            {
+                "id": "DISBURSEMENT_LOADER",
+                "condition": {
+                    "expression": "applicationData.applicant.emailId != null && applicationData.trueCallerDetails == null || applicationData.trueCallerDetails.isValidationRequired == \"false\""
+                }
+            }
+        ],
+        "previousScreen": {
+            "id": "MANDATE",
+            "condition": {
+                "expression": "true"
+            }
+        }
+    },
+    {
+        "id": "DISBURSEMENT_OTP_SCREEN",
+        "nextScreens": [
+            {
+                "id": "LOAN_OFFER_EXPIRY",
+                "condition": {
+                    "expression": "applicationData.offerDetails != null && applicationData.offerDetails.expiryDate < (new java.text.SimpleDateFormat(\"yyyy-MM-dd\").format(new java.util.Date()))"
+                }
+            },
+            {
+                "id": "LOAN_DISBURSAL_LOADER_SCREEN",
+                "condition": {
+                    "expression": "applicationData.disbursementDetails != null && applicationData.disbursementDetails.isOtpVerified == \"true\""
+                }
+            }
+        ],
+        "previousScreen": {
+            "id": "LOAN_SUMMARY",
+            "condition": {
+                "expression": "true"
+            }
+        }
+    },
+    {
+        "id": "DISBURSEMENT_LOADER",
+        "nextScreens": [
+            {
+                "id": "DELAYED_DISBURSEMENT_LOADER",
+                "condition": {
+                    "expression": "T(java.time.LocalDateTime).now() > T(java.time.LocalDateTime).parse(applicationData.loanDetails.loanAgreementDetails.signedTime).plusSeconds(8)"
+                }
+            },
+            {
+                "id": "HOME",
+                "condition": {
+                    "expression": "applicationData.loanAccountStatus == \"ACTIVE\""
+                }
+            }
+        ],
+        "previousScreen": {
+            "id": "HOME",
+            "condition": {
+                "expression": "true"
+            }
+        }
+    },
+    {
+        "id": "MFI_REJECTION_SCREEN",
+        "nextScreens": [
+            {
+                "id": "HOME",
+                "condition": {
+                    "expression": "true"
+                }
+            }
+        ],
+        "previousScreen": {
+            "id": "HOME",
+            "condition": {
+                "expression": "true"
+            }
+        }
+    },
+    {
+        "id": "OFFER_REJECTION_SCREEN",
+        "nextScreens": [
+            {
+                "id": "KYC",
+                "condition": {
+                    "expression": "applicationData.phalanaDhimkana != null"
+                }
+            }
+        ],
+        "previousScreen": null
+    },
+    {
+        "id": "DELAYED_DISBURSEMENT_LOADER",
+        "nextScreens": [
+            {
+                "id": "HOME",
+                "condition": {
+                    "expression": "applicationData.loanAccountStatus == \"ACTIVE\""
+                }
+            }
+        ],
         "previousScreen": null
     }
 ]
