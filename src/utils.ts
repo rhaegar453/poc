@@ -27,7 +27,7 @@ export const formatNodesData = (data: Array<INode>) => {
                 id: uuid(),
                 source: item.id,
                 target: nextScreen.id,
-                type: 'straight',
+                type: 'step',
                 markerEnd: {
                     type: MarkerType.ArrowClosed,
                     color: 'black',

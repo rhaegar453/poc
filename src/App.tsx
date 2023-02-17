@@ -19,7 +19,7 @@ const nodeHeight = 36;
 
 const getLayoutedElements = (nodes: Node[], edges: Edge[], direction = 'HL') => {
   const isHorizontal = direction === 'LR';
-  dagreGraph.setGraph({ rankdir: direction, ranksep:100, nodesep:1, edgesep:30, ranker:'network-simplex', marginx:0, marginy:0 });
+  dagreGraph.setGraph({ rankdir: direction, ranksep:100, nodesep:1, edgesep:30, ranker:'network-simplex', marginx:0, marginy:0, acyclicer:'greedy', align:'DL' });
 
   nodes.forEach((node: any) => {
     dagreGraph.setNode(node.id, { width: nodeWidth, height: nodeHeight });
