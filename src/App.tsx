@@ -1,9 +1,10 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useMemo } from "react";
 import 'reactflow/dist/style.css';
 import ReactFlow, { Controls, Background, useNodesState, Node, Edge, Position, useEdgesState, addEdge, ConnectionLineType } from 'reactflow';
 import screenTransitions from './data.json';
 import { formatNodesData } from "./utils";
 import dagre from 'dagre';
+import CustomNode from "./components/Node";
 
 
 const dagreGraph = new dagre.graphlib.Graph();
@@ -48,7 +49,7 @@ const getLayoutedElements = (nodes: Node[], edges: Edge[], direction = 'HL') => 
 
 
 const App = () => {
-  const { nodes: computedNodes, edges: computedEdges } = getLayoutedElements(initialNodes, initialEdges)
+  const { nodes: computedNodes, edges: computedEdges } = useMemo(() => getLayoutedElements(initialNodes, initialEdges), [screenTransitions])
   const [nodes, setNodes, onNodesChange] = useNodesState(computedNodes)
   const [edges, setEdges, onEdgesChange] = useEdgesState(computedEdges)
 
@@ -61,17 +62,18 @@ const App = () => {
     []
   );
 
-  const handleNodeClick = (data: any, node:Node) => {
-    let modifiedEdges=edges.map(item=>{
-      if(item.source===node.id){
-        return {...item, animated:true, style:{ strokeWidth:'2px', stroke:item.style?.stroke}}
+  const handleNodeClick = (data: any, node: Node) => {
+    let modifiedEdges = edges.map(item => {
+      if (item.source === node.id) {
+        return { ...item, animated: true, style: { strokeWidth: '2px', stroke: item.style?.stroke } }
       }
-      return {...item, animated:false};
+      return { ...item, animated: false };
     })
     setEdges(modifiedEdges)
   }
-
-  console.log("These are the nodes", edges, nodes)
+  const customNodeTypes = useMemo(() => ({
+    'custom': CustomNode
+  }), [])
 
   return (
     <div>
@@ -82,6 +84,7 @@ const App = () => {
           onNodeClick={handleNodeClick}
           onEdgesChange={onEdgesChange}
           onConnect={onConnect}
+          nodeTypes={customNodeTypes}
         >
           <Background />
           <Controls />

@@ -22,7 +22,8 @@ export const formatNodesData = (data: Array<INode>) => {
         nodes.push({
             id: item.id,
             draggable: true,
-            data: { label: item.id }
+            data: { label: item.id, color },
+            type: 'custom'
         })
         item?.nextScreens?.map((nextScreen) => {
             edges.push({
