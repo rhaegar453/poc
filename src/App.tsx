@@ -1,10 +1,11 @@
 import React, { useCallback, useMemo } from "react";
 import 'reactflow/dist/style.css';
-import ReactFlow, { Controls, Background, useNodesState, Node, Edge, Position, useEdgesState, addEdge, ConnectionLineType } from 'reactflow';
+import ReactFlow, { Controls, Background,MiniMap, useNodesState, Node, Edge, Position, useEdgesState, addEdge, ConnectionLineType, useReactFlow, ReactFlowInstance } from 'reactflow';
 import screenTransitions from './data.json';
 import { formatNodesData } from "./utils";
 import dagre from 'dagre';
 import CustomNode from "./components/Node";
+import OrphanNode from "./components/OrphanNode";
 
 
 const dagreGraph = new dagre.graphlib.Graph();
@@ -17,10 +18,9 @@ const nodeHeight = 36;
 
 
 
-
 const getLayoutedElements = (nodes: Node[], edges: Edge[], direction = 'HL') => {
   const isHorizontal = direction === 'LR';
-  dagreGraph.setGraph({ rankdir: direction, ranksep: 100, nodesep: 1, edgesep: 50, ranker: 'network-simplex', marginx: 0, marginy: 0, align: 'DL' });
+  dagreGraph.setGraph({ rankdir: direction,  ranker: 'network-simplex', marginx: 0, marginy: 0, align: 'DL' });
 
   nodes.forEach((node: any) => {
     dagreGraph.setNode(node.id, { width: nodeWidth, height: nodeHeight });
@@ -72,22 +72,26 @@ const App = () => {
     setEdges(modifiedEdges)
   }
   const customNodeTypes = useMemo(() => ({
-    'custom': CustomNode
+    'custom': CustomNode,
+    'orphan': OrphanNode
   }), [])
 
   return (
     <div>
       <h1>Hello World this is React Flow POC</h1>
-      <div style={{ height: '800px', width: '800px' }}>
-        <ReactFlow nodes={nodes} edges={edges}
+      <div style={{ height: '800px' }}>
+          <ReactFlow nodes={nodes} edges={edges}
           onNodesChange={onNodesChange}
           onNodeClick={handleNodeClick}
           onEdgesChange={onEdgesChange}
           onConnect={onConnect}
           nodeTypes={customNodeTypes}
+          fitView
+          fitViewOptions={{nodes:[{id:'INTRO_SCREEN'}]}}
         >
           <Background />
           <Controls />
+          <MiniMap zoomable pannable />
         </ReactFlow>
       </div>
     </div>

@@ -20,7 +20,6 @@ function OrphanNode({ data, ...rest }: { data: { label: string, color: string } 
       <NodeContainer color={color}>
         <p>{label}</p>
       </NodeContainer>
-      <Handle type="source" position={Position.Bottom} />
     </>
   );
 }

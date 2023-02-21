@@ -12,11 +12,6 @@
         "previousScreen": null
     },
     {
-        "id": "PAN_ANOTHER_USER_ERROR_SCREEN",
-        "nextScreens": [],
-        "previousScreen": null
-    },
-    {
         "id": "BASIC_DETAILS",
         "nextScreens": [
             {
@@ -109,7 +104,6 @@
         "id": "GST_MODULE",
         "nextScreens": [
             {
-                "id": "PERMISSION",
                 "condition": {
                     "expression": "applicationData.applicant != null && applicationData.applicant.gstDetails !=null && (applicationData.applicant.gstDetails.isVerified == \"true\" || applicationData.applicant.gstDetails.isSkipped == \"true\")"
                 }

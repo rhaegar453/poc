@@ -1,23 +1,26 @@
-import { useCallback } from 'react';
-import { Handle, Position } from 'reactflow';
+import { useCallback, useState } from 'react';
+import { Handle, Position, useReactFlow } from 'reactflow';
 import styled from '@emotion/styled';
 
 const NodeContainer = styled.div`
-border: ${({ color }) => `1px solid ${color || '#330000'}`};
+border:1px solid #333333;
 border-radius:15px;
 transition:0.3s;
 padding:5px 20px;
-background-color:white;
+background-color: ${({ color }) => `${color || 'white'}`};
 `;
 
 
 function Node({ data, ...rest }: { data: { label: string, color: string } }) {
     const { label, color } = data;
-    console.log(rest)
+    const [open, setOpen] = useState<boolean>();
+    const { fitView } = useReactFlow();
     return (
         <>
             <Handle type="target" position={Position.Top} />
-            <NodeContainer color={color}>
+            <NodeContainer color={color} onMouseOver={() => setOpen(true)}
+                onMouseLeave={() => setOpen(false)}
+            >
                 <p>{label}</p>
             </NodeContainer>
             <Handle type="source" position={Position.Bottom} />
