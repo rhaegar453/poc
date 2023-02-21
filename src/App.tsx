@@ -6,6 +6,7 @@ import { formatNodesData } from "./utils";
 import dagre from 'dagre';
 import CustomNode from "./components/Node";
 import OrphanNode from "./components/OrphanNode";
+import Tooltip from "./components/tooltip";
 
 
 const dagreGraph = new dagre.graphlib.Graph();
@@ -79,6 +80,11 @@ const App = () => {
   return (
     <div>
       <h1>Hello World this is React Flow POC</h1>
+      <Tooltip trigger={<button>Click Me</button>} open={true}>
+        <div>
+        <h1>Hello World this is Shivaraj Bakale and this is the tooltip</h1>
+        </div>
+      </Tooltip>
       <div style={{ height: '800px' }}>
           <ReactFlow nodes={nodes} edges={edges}
           onNodesChange={onNodesChange}

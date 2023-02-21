@@ -12,6 +12,11 @@
         "previousScreen": null
     },
     {
+        "id": "PAN_ANOTHER_USER_ERROR_SCREEN",
+        "nextScreens": [],
+        "previousScreen": null
+    },
+    {
         "id": "BASIC_DETAILS",
         "nextScreens": [
             {
@@ -104,6 +109,7 @@
         "id": "GST_MODULE",
         "nextScreens": [
             {
+                "id": "PERMISSION",
                 "condition": {
                     "expression": "applicationData.applicant != null && applicationData.applicant.gstDetails !=null && (applicationData.applicant.gstDetails.isVerified == \"true\" || applicationData.applicant.gstDetails.isSkipped == \"true\")"
                 }
@@ -185,6 +191,12 @@
     {
         "id": "MFI",
         "nextScreens": [
+            {
+                "id": "LOAN_OFFER_EXPIRY",
+                "condition": {
+                    "expression": "applicationData.offerDetails != null && applicationData.offerDetails.expiryDate < (new java.text.SimpleDateFormat(\"yyyy-MM-dd\").format(new java.util.Date()))"
+                }
+            },
             {
                 "id": "LOAN_DETAILS",
                 "condition": {
@@ -335,6 +347,12 @@
                 "id": "LOAN_OFFER_EXPIRY",
                 "condition": {
                     "expression": "applicationData.offerDetails != null && applicationData.offerDetails.expiryDate < (new java.text.SimpleDateFormat(\"yyyy-MM-dd\").format(new java.util.Date()))"
+                }
+            },
+            {
+                "id": "KYC",
+                "condition": {
+                    "expression": "applicationData.applicant.primaryBankAccount.mandateDetails.sdk.status == \"SUCCESS\""
                 }
             },
             {

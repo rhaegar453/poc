@@ -11,6 +11,9 @@
   "dependencies": {
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
+    "@radix-ui/colors": "^0.1.8",
+    "@radix-ui/react-icons": "^1.2.0",
+    "@radix-ui/react-tooltip": "^1.0.3",
     "contrast-color": "^1.0.1",
     "d3-hierarchy": "^3.1.2",
     "dagre": "^0.8.5",
