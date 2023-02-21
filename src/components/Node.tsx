@@ -7,7 +7,7 @@ border:1px solid #333333;
 border-radius:15px;
 transition:0.3s;
 padding:5px 20px;
-background-color: ${({ color }) => `${color || 'white'}`};
+background-color: ${({ color }) => `${color || 'white!important'}`};
 `;
 
 

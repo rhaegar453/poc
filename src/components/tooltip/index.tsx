@@ -12,7 +12,9 @@ const Tooltip = (props: PropsWithChildren<{ trigger: ReactNode }> & TooltipBase.
                     {trigger}
                 </TooltipBase.Trigger>
                 <TooltipBase.Portal>
-                    {children}
+                    <TooltipBase.Content>
+                        {children}
+                    </TooltipBase.Content>
                 </TooltipBase.Portal>
             </TooltipBase.Root>
         </TooltipBase.Provider>
