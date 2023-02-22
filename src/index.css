@@ -3,3 +3,10 @@
   line-height: 1.5;
   font-weight: 400;
 }
+
+button {
+  background-color: #f2f2f2;
+  padding: 5px;
+  border-radius: 2px;
+  border: 1px solid #e8e8e8;
+}

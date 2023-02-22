@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import 'reactflow/dist/style.css';
-import ReactFlow, { Controls, Background, MiniMap, useNodesState, Node, Edge, Position, useEdgesState, addEdge, ConnectionLineType, useReactFlow, ReactFlowInstance } from 'reactflow';
+import ReactFlow, { Controls, Background, MiniMap, useNodesState, Node, Edge, Position, ReactFlowProvider, useEdgesState, addEdge, ConnectionLineType, useReactFlow, ReactFlowInstance } from 'reactflow';
 import screenTransitions from './data.json';
 import { formatNodesData } from "./utils";
 import dagre from 'dagre';
@@ -95,39 +95,47 @@ const App = () => {
       let nodeId = customEvent.detail.label;
       console.log("Open the modal for editing the screen definition of this particular screen")
     })
+    document.addEventListener('pan_to_node', (e: Event) => {
+      let customEvent = e as CustomEvent;
+      console.log("These are the ndoe details ", customEvent.detail)
+      setModalOpen(false)
+    })
     return () => {
       document.removeEventListener('view_screen_definition', () => { })
       document.removeEventListener('edit_screen_definition', () => { })
+      document.removeEventListener('pan_to_node', () => { })
     }
   }, [])
 
   return (
     <div>
-      <div style={{ height: '800px' }}>
-        <Modal open={modalOpen} onOpenChange={(open) => setModalOpen(open)} title="View Screen Transitions"
-        >
-          <div>
-            {selectedNode ? <div>
-              <div>
-                <NodeTransitionDetails {...selectedNode} />
-              </div>
-            </div> : null}
-          </div>
-        </Modal>
-        <ReactFlow nodes={nodes} edges={edges}
-          onNodesChange={onNodesChange}
-          onNodeClick={handleNodeClick}
-          onEdgesChange={onEdgesChange}
-          onConnect={onConnect}
-          nodeTypes={customNodeTypes}
-          fitView
-          fitViewOptions={{ nodes: [{ id: 'INTRO_SCREEN' }] }}
-        >
-          <Background />
-          <Controls />
-          <MiniMap zoomable pannable />
-        </ReactFlow>
-      </div>
+      <ReactFlowProvider>
+        <div style={{ height: '800px' }}>
+          <Modal open={modalOpen} onOpenChange={(open) => setModalOpen(open)} title="View Screen Transitions"
+          >
+            <div>
+              {selectedNode ? <div>
+                <div>
+                  <NodeTransitionDetails {...selectedNode} />
+                </div>
+              </div> : null}
+            </div>
+          </Modal>
+          <ReactFlow nodes={nodes} edges={edges}
+            onNodesChange={onNodesChange}
+            onNodeClick={handleNodeClick}
+            onEdgesChange={onEdgesChange}
+            onConnect={onConnect}
+            nodeTypes={customNodeTypes}
+            fitView
+            fitViewOptions={{ nodes: [{ id: 'INTRO_SCREEN' }] }}
+          >
+            <Background />
+            <Controls />
+            <MiniMap zoomable pannable />
+          </ReactFlow>
+        </div>
+      </ReactFlowProvider>
     </div>
   );
 }

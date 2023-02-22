@@ -7,7 +7,7 @@ const Tooltip = (props: PropsWithChildren<{ trigger: ReactNode }> & TooltipBase.
     const { children, trigger, ...rest } = props;
     return (
         <TooltipBase.Provider >
-            <TooltipBase.Root {...rest}>
+            <TooltipBase.Root delayDuration={200}{...rest}>
                 <TooltipBase.Trigger asChild>
                     {trigger}
                 </TooltipBase.Trigger>
