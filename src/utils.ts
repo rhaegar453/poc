@@ -4,13 +4,13 @@ import { uniqBy } from 'lodash';
 
 
 
-interface Screen {
+export interface Screen {
     id: string,
     condition: {
         expression: string
     }
 }
-interface INode {
+export interface INode {
     id: string,
     nextScreens: Array<Screen>,
     previousScreen: Screen
