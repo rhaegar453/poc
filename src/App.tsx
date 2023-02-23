@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import 'reactflow/dist/style.css';
 import ReactFlow, { Controls, Background, MiniMap, useNodesState, Node, Edge, Position, ReactFlowProvider, useEdgesState, addEdge, ConnectionLineType, useReactFlow, ReactFlowInstance } from 'reactflow';
 import screenTransitions from './data.json';
-import { formatNodesData } from "./utils";
+import { formatNodesData, generateEdges, generateTreeData, INode } from "./utils";
 import dagre from 'dagre';
 import CustomNode from "./components/Node";
 import OrphanNode from "./components/OrphanNode";
@@ -52,13 +52,16 @@ const getLayoutedElements = (nodes: Node[], edges: Edge[], direction = 'HL') => 
 };
 
 
+
 const App = () => {
-  const { nodes: computedNodes, edges: computedEdges } = useMemo(() => getLayoutedElements(initialNodes, initialEdges), [screenTransitions])
-  const [nodes, setNodes, onNodesChange] = useNodesState(computedNodes);
-  const [edges, setEdges, onEdgesChange] = useEdgesState(computedEdges);
+  const generatedNodes = useMemo(() => generateTreeData(screenTransitions, 'INTRO_SCREEN'), [screenTransitions])
+  const generatedEdges=useMemo(()=>generateEdges(screenTransitions as Array<INode>),[screenTransitions])
+  const [nodes, setNodes, onNodesChange] = useNodesState(generatedNodes);
+  const [edges, setEdges, onEdgesChange] = useEdgesState(generatedEdges);
   const [selectedNode, setSelectedNode] = useState<any>();
   const [modalOpen, setModalOpen] = useState<boolean>(false)
 
+  console.log("This the nodes data ", nodes)
 
   const onConnect = useCallback(
     (params: any) =>
@@ -66,8 +69,7 @@ const App = () => {
         addEdge({ ...params, type: ConnectionLineType.SmoothStep, animated: true }, eds)
       ),
     []
-  );
-
+  ); 
   const handleNodeClick = (data: any, node: Node) => {
     let modifiedEdges = edges.map(item => {
       if (item.source === node.id) {
@@ -76,7 +78,9 @@ const App = () => {
       return { ...item, animated: false };
     })
     setEdges(modifiedEdges)
-  }
+  } 
+
+
   const customNodeTypes = useMemo(() => ({
     'custom': CustomNode,
     'orphan': OrphanNode
@@ -121,7 +125,8 @@ const App = () => {
               </div> : null}
             </div>
           </Modal>
-          <ReactFlow nodes={nodes} edges={edges}
+          <ReactFlow nodes={nodes} 
+          edges={edges}
             onNodesChange={onNodesChange}
             onNodeClick={handleNodeClick}
             onEdgesChange={onEdgesChange}
