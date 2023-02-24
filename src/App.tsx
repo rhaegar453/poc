@@ -55,7 +55,7 @@ const getLayoutedElements = (nodes: Node[], edges: Edge[], direction = 'HL') => 
 
 const App = () => {
   const generatedNodes = useMemo(() => generateTreeData(screenTransitions, 'INTRO_SCREEN'), [screenTransitions])
-  const generatedEdges=useMemo(()=>generateEdges(screenTransitions as Array<INode>),[screenTransitions])
+  const generatedEdges = useMemo(() => generateEdges(screenTransitions as Array<INode>), [screenTransitions])
   const [nodes, setNodes, onNodesChange] = useNodesState(generatedNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(generatedEdges);
   const [selectedNode, setSelectedNode] = useState<any>();
@@ -69,7 +69,7 @@ const App = () => {
         addEdge({ ...params, type: ConnectionLineType.SmoothStep, animated: true }, eds)
       ),
     []
-  ); 
+  );
   const handleNodeClick = (data: any, node: Node) => {
     let modifiedEdges = edges.map(item => {
       if (item.source === node.id) {
@@ -78,7 +78,7 @@ const App = () => {
       return { ...item, animated: false };
     })
     setEdges(modifiedEdges)
-  } 
+  }
 
 
   const customNodeTypes = useMemo(() => ({
@@ -125,8 +125,9 @@ const App = () => {
               </div> : null}
             </div>
           </Modal>
-          <ReactFlow nodes={nodes} 
-          edges={edges}
+          <ReactFlow
+            nodes={nodes}
+            edges={edges}
             onNodesChange={onNodesChange}
             onNodeClick={handleNodeClick}
             onEdgesChange={onEdgesChange}

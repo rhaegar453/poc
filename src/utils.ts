@@ -1,5 +1,5 @@
 import { v4 as uuid } from 'uuid';
-import { isNode, MarkerType } from 'reactflow';
+import { MarkerType } from 'reactflow';
 import { uniqBy } from 'lodash';
 import { hierarchy, tree } from 'd3-hierarchy';
 
@@ -81,8 +81,6 @@ export const formatNodesData = (data: Array<INode>) => {
                 markerEnd: {
                     type: MarkerType.ArrowClosed,
                     color: 'black',
-                    height: 10,
-                    width: 10
                 }
             })
         })
@@ -95,6 +93,11 @@ export const formatNodesData = (data: Array<INode>) => {
 }
 
 function bfs(data:Array<Screen>, startingNode:string) {
+    const parentNodesSet=new Set();
+    /* Generate the parent node set */
+    data.map(screen=>{
+        parentNodesSet.add(screen.id);
+    })
     const screensMap:Record<string, any> = {};
     const visited = new Set();
     const queue = [];
@@ -104,18 +107,20 @@ function bfs(data:Array<Screen>, startingNode:string) {
     data.map(screen => {
         screensMap[screen.id] = screen;
     })
-
     while (queue.length > 0) {
         let currentItem = queue.shift();
         final[currentItem as string] = []
         screensMap[currentItem as string]?.nextScreens.map((item:{id:string}) => {
             if (!visited.has(item.id)) {
-                final[currentItem as string].push(item.id)
+                if(parentNodesSet.has(item.id)){
+                    final[currentItem as string].push(item.id)
+                }
                 queue.push(item.id);
                 visited.add(item.id)
             }
         })
     }
+    console.log("This is the generated node graph", final)
     return formatData(final);
 }
 
@@ -125,7 +130,7 @@ export const generateTreeData=(data:any, startingNode:string)=>{
     const bfsTree=bfs(data, startingNode);
     /* Create a Graph Hierarchy using the BFS tree generated */
     const treeHierarchy=hierarchy(bfsTree);
-    const treeLayout=tree().size([600,400]).nodeSize([400,200]).separation((a,b)=>a.parent===b.parent?1:2);
+    const treeLayout=tree().size([200,100]).nodeSize([250,200]).separation((a,b)=>a.parent===b.parent?1:2);
     const d3Tree=treeLayout(treeHierarchy);
 
     const nodes=d3Tree.descendants().map((node:any)=>{
@@ -148,7 +153,11 @@ export const generateEdges=(data:Array<INode>)=>{
                 id:uuid(),
                 source:screen.id,
                 target:child.id,
-                type: 'smoothstep',  
+                type: 'simplebezier',  
+                markerEnd: {
+                    type: MarkerType.ArrowClosed,
+                    color: '#555555',
+                },
             })
         })
         /* If there are previous screens mark them too */
@@ -157,7 +166,12 @@ export const generateEdges=(data:Array<INode>)=>{
                 id:uuid(),
                 source:screen.id, 
                 target:screen.previousScreen.id,
-                type:'smoothstep'
+                type:'simplebezier',
+                label:'Hello World',
+                markerEnd: {
+                    type: MarkerType.ArrowClosed,
+                    color: '#555555',
+                },
             })
         }
     })

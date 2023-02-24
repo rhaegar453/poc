@@ -4,11 +4,14 @@ import styled from '@emotion/styled';
 import { EyeOpenIcon, Pencil2Icon } from '@radix-ui/react-icons';
 
 const NodeContainer = styled.div`
-border:1px solid #333333;
-border-radius:15px;
+border: 1px solid #e8e8e8;
+border-radius:5px;
 transition:0.3s;
-padding:5px 20px;
+padding:5px 30px;
 background-color: ${({ color }) => `${color || 'white!important'}`};
+&:hover{
+    background-color:#e8e8e8;
+}
 `;
 
 const IconSpan = styled.span`
@@ -43,7 +46,7 @@ function Node({ data, ...rest }: { data: { label: string, color: string } }) {
 
     return (
         <>
-            <Handle type="target" position={Position.Top} />
+            <Handle type="target" position={Position.Top}  />
             <div style={{ position: 'relative' }} onMouseOver={() => setOpen(true)}
                 onMouseLeave={() => setOpen(false)}>
                 <NodeContainer color={color}
